@@ -1,4 +1,5 @@
 // src/App.jsx
+import JoinForm from "./components/JoinForm";
 import ProjectCard from "./components/ProjectCard";
 import ProfileCard from "./components/ProfileCard";
 
@@ -81,6 +82,7 @@ function App() {
         </div>
 
       </div>
+      <JoinForm />
     </div>
   );
 }
