@@ -1,4 +1,5 @@
 // src/App.jsx
+import { useState } from 'react';
 import JoinForm from "./components/JoinForm";
 import ProjectCard from "./components/ProjectCard";
 import ProfileCard from "./components/ProfileCard";
@@ -47,7 +48,7 @@ function App() {
       avatarUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500"
     }
   ];
-
+   const [showTeam, setShowTeam] = useState(true);
   return (
     <div className="min-h-screen bg-slate-50 p-8">
       <div className="max-w-6xl mx-auto">
@@ -67,8 +68,21 @@ function App() {
           ))}
         </div>
 
-        {/* Team Members Section (The Mini-Challenge) */}
-        <h2 className="text-3xl font-extrabold text-slate-900 mb-6">Meet the Team</h2>
+        {/* Team Members Section (Day 4: Conditional Rendering) */}
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-3xl font-extrabold text-slate-900">Meet the Team</h2>
+        
+        {/* Toggle Button */}
+        <button 
+          onClick={() => setShowTeam(!showTeam)}
+          className="text-sm font-semibold bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 rounded-lg transition-colors"
+        >
+          {showTeam ? "Hide Team 🙈" : "Show Team 🐵"}
+        </button>
+      </div>
+
+      {/* The Logical AND (&&) - If true, render grid. If false, render nothing! */}
+      {showTeam && (
         <div className="flex flex-wrap gap-6 justify-start">
           {teamMembers.map((member) => (
             <ProfileCard 
@@ -80,6 +94,8 @@ function App() {
             />
           ))}
         </div>
+      )}
+
 
       </div>
       <JoinForm />
