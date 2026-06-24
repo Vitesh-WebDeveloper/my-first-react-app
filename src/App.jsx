@@ -11,7 +11,7 @@ function App() {
       title: "Weather Dashboard",
       description: "Real-time weather tracking application utilizing asynchronous JavaScript and API error handling states.",
       tags: ["JavaScript", "API", "Tailwind"],
-      liveLink: "#",
+      liveLink: "https://weather-search-app-five.vercel.app/",
       imageUrl: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=500"
     },
     {
@@ -19,12 +19,11 @@ function App() {
       title: "Movie Search Engine",
       description: "Dynamic UI card interface to search database movies with conditional error rendering.",
       tags: ["React", "DOM", "Tailwind"],
-      liveLink: "#",
+      liveLink: "https://movie-app-vitesh.netlify.app/",
       imageUrl: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500"
     }
   ];
 
-  // NEW: The array for the Mini-Challenge
   const teamMembers = [
     {
       id: 1,
@@ -45,16 +44,14 @@ function App() {
       name: "Sneha Reddy",
       role: "UI/UX Designer",
       company: "Hyderabad Tech",
-      avatarUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500"
+      // Updated to a professional, decent corporate headshot
+      avatarUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500" 
     }
   ];
-   const [showTeam, setShowTeam] = useState(true);
-
-// 1. We need a memory state to remember what the user is typing in the search box.
+  
+  const [showTeam, setShowTeam] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // 2. We are creating a NEW array. It filters the teamMembers array.
-  // It says: "Only keep the member if their name includes the letters typed in the searchQuery."
   const filteredTeam = teamMembers.filter((member) =>
     member.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -83,7 +80,6 @@ function App() {
         <h2 className="text-3xl font-extrabold text-slate-900">Meet the Team</h2>
         
         <div className="flex gap-4">
-          {/* THE NEW SEARCH BAR */}
           <input
             type="text"
             placeholder="Search team..."
@@ -101,10 +97,8 @@ function App() {
         </div>
       </div>
 
-      {/* The Logical AND (&&) - If true, render grid. If false, render nothing! */}
       {showTeam && (
         <div className="flex flex-wrap gap-6 justify-start">
-          {/* If the filtered list is empty (0), show the warning text. Otherwise, map the cards! */}
           {filteredTeam.length === 0 ? (
             <p className="text-slate-500 italic w-full py-4 text-center border-2 border-dashed border-slate-200 rounded-xl">
               No team members found matching "{searchQuery}"
@@ -123,8 +117,8 @@ function App() {
         </div>
       )}
 
-
       </div>
+      {/* Your perfectly refactored JoinForm is here! */}
       <JoinForm />
     </div>
   );

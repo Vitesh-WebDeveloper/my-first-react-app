@@ -4,53 +4,58 @@ import { useState } from 'react';
 function JoinForm() {
   const [inputValue, setInputValue] = useState("");
   const [welcomeMessage, setWelcomeMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // 1. New loading state
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleJoinClick = () => {
-    // Check if empty
-    if (inputValue.trim() === "") {
-      setWelcomeMessage("⚠️ Please enter a name first!");
-      return; // Stop the function here
+  // 1. Notice we changed 'handleJoinClick' to 'handleSubmit'
+  // React automatically passes the event 'e' into this function when the form is submitted.
+  const handleSubmit = (e) => {
+    // 2. CRITICAL: This stops the page from refreshing! 
+    e.preventDefault(); 
+
+    // 3. Validation: Must be at least 3 characters
+    if (inputValue.trim().length < 3) {
+      setWelcomeMessage("⚠️ Name must be at least 3 characters long.");
+      return; 
     }
 
-    // 2. Fake a loading sequence for 1 second
     setIsLoading(true);
-    setWelcomeMessage(""); // Clear old messages
+    setWelcomeMessage(""); 
 
     setTimeout(() => {
       setWelcomeMessage(`🎉 Welcome to the network, ${inputValue}!`);
-      setIsLoading(false); // Turn off loading
-      setInputValue(""); // Clear input box
-    }, 1000); // 1000 milliseconds = 1 second
+      setIsLoading(false); 
+      setInputValue(""); 
+    }, 1000); 
   };
 
   return (
     <div className="bg-white p-6 border border-slate-200 rounded-2xl shadow-sm w-full max-w-md mt-8">
       <h3 className="text-xl font-bold text-slate-800 mb-4">Join My Network</h3>
       
-      <div className="flex gap-2 mb-4">
+      {/* 4. Changed the wrapper div to a <form>. 
+             It listens for the 'onSubmit' event instead of button clicks! */}
+      <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
         <input 
           type="text" 
           placeholder="Enter your name..."
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)} 
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') handleJoinClick(); // 3. Enter key support
-          }}
+          // Notice we deleted 'onKeyDown'. Forms handle the Enter key automatically!
           className="flex-grow px-4 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
+        {/* 5. Changed type to "submit" so it triggers the form onSubmit */}
         <button 
-          onClick={handleJoinClick}
-          disabled={isLoading} // Prevent double clicking
+          type="submit"
+          disabled={isLoading} 
           className={`${
             isLoading ? 'bg-indigo-400' : 'bg-indigo-600 hover:bg-indigo-700'
           } text-white font-medium px-5 py-2 rounded-xl transition-colors`}
         >
           {isLoading ? "Joining..." : "Join"} 
         </button>
-      </div>
+      </form>
 
-      {/* 4. Conditional Styling (Red for error, Green for success) */}
+      {/* Conditional Styling remains exactly the same */}
       {welcomeMessage && (
         <div className={`p-3 rounded-lg text-sm font-medium border ${
           welcomeMessage.includes("⚠️") 
