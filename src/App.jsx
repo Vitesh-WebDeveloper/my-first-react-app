@@ -99,7 +99,7 @@ function App() {
 
       {showTeam && (
         <div className="flex flex-wrap gap-6 justify-start">
-          {filteredTeam.length === 0 ? (
+            {(searchQuery && filteredTeam.length === 0) ? (
             <p className="text-slate-500 italic w-full py-4 text-center border-2 border-dashed border-slate-200 rounded-xl">
               No team members found matching "{searchQuery}"
             </p>
